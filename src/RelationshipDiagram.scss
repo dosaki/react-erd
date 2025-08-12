@@ -76,6 +76,10 @@
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
   }
+  .title-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
   ul {
     margin: 0;
     padding: 0;

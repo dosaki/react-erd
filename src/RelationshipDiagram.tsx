@@ -1,5 +1,6 @@
 import {
   Fragment,
+  ReactNode,
   useCallback,
   useEffect,
   useMemo,
@@ -20,6 +21,7 @@ import {
   Position,
   ConnectionLineType,
   getSmoothStepPath,
+  ReactFlowInstance,
 } from "reactflow";
 
 import { Icon } from "@mdi/react";
@@ -49,7 +51,7 @@ type ForeignKey = {
   constrained: boolean;
 };
 
-type DatabaseTableInfo = {
+export type DatabaseTableInfo = {
   name: string;
   primaryKey: string | string[];
   color?: string;
@@ -133,6 +135,8 @@ export type RelationshipDiagramProps = {
   onAttemptToDeleteConstrainedRelationship?: (
     foreignKey: SpecifiedForeignKey
   ) => void;
+  onInit?: (reactFlowInstance: ReactFlowInstance) => void;
+  children?: ReactNode;
 };
 
 function RelationshipDiagram({
@@ -144,6 +148,8 @@ function RelationshipDiagram({
   onAttemptToRecreateExistingRelationship,
   onAttemptToConnectColumnToItself,
   onAttemptToDeleteConstrainedRelationship,
+  onInit,
+  children,
 }: RelationshipDiagramProps) {
   const reactFlowInstance = useReactFlow();
 
@@ -164,7 +170,7 @@ function RelationshipDiagram({
         return (
           <div style={{ width: NODE_WIDTH }}>
             <div className="title" style={{ borderTopColor: color }}>
-              {table.name}
+              <span className="title-text">{table.name}</span>
             </div>
             <ul>
               {table.columns.map((column) => (
@@ -173,7 +179,9 @@ function RelationshipDiagram({
                     const foreignKey =
                       column.foreignKeys.filter((key) => key.constrained)
                         .length >= 1;
-                    const isPrimary = table.primaryKey === column.name;
+                    const isPrimary =
+                      table.primaryKey === column.name ||
+                      table.primaryKey.includes(column.name);
                     if (foreignKey && isPrimary) {
                       return <Icon path={mdiKeyLink} className="column-icon" />;
                     } else if (foreignKey) {
@@ -648,7 +656,10 @@ function RelationshipDiagram({
           onConnectStart={handleConnectionStart}
           onConnectEnd={handleConnectionEnd}
           onConnect={handleAddConnectionBetweenNodes}
-        />
+          onInit={onInit}
+        >
+          {children}
+        </ReactFlow>
       </div>
     </>
   );
