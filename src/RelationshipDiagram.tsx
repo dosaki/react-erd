@@ -1,12 +1,12 @@
 import {
-    Fragment,
-    ReactNode,
-    useCallback,
-    useEffect,
-    useMemo,
-    useRef,
-    useState
-} from 'react'
+  Fragment,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
 import {
   Connection,
@@ -21,11 +21,11 @@ import {
   Position,
   ConnectionLineType,
   getSmoothStepPath,
-  ReactFlowInstance
-} from 'reactflow'
+  ReactFlowInstance,
+} from "reactflow";
 
 import { Icon } from "@mdi/react";
-import {mdiKeyLink, mdiKey, mdiLinkVariant} from '@mdi/js'
+import { mdiKeyLink, mdiKey, mdiLinkVariant } from "@mdi/js";
 
 export type DataType =
   | "binary"
@@ -135,9 +135,7 @@ export type RelationshipDiagramProps = {
   onAttemptToDeleteConstrainedRelationship?: (
     foreignKey: SpecifiedForeignKey
   ) => void;
-  onInit?: (
-      reactFlowInstance: ReactFlowInstance
-  ) => void;
+  onInit?: (reactFlowInstance: ReactFlowInstance) => void;
   children?: ReactNode;
 };
 
@@ -151,7 +149,7 @@ function RelationshipDiagram({
   onAttemptToConnectColumnToItself,
   onAttemptToDeleteConstrainedRelationship,
   onInit,
-  children
+  children,
 }: RelationshipDiagramProps) {
   const reactFlowInstance = useReactFlow();
 
@@ -171,7 +169,7 @@ function RelationshipDiagram({
       }: NodeProps<TableNodeData>) {
         return (
           <div style={{ width: NODE_WIDTH }}>
-            <div className="title" style={{ borderTopColor: color }} >
+            <div className="title" style={{ borderTopColor: color }}>
               <span className="title-text">{table.name}</span>
             </div>
             <ul>
@@ -181,7 +179,9 @@ function RelationshipDiagram({
                     const foreignKey =
                       column.foreignKeys.filter((key) => key.constrained)
                         .length >= 1;
-                    const isPrimary = table.primaryKey === column.name || table.primaryKey.includes(column.name);
+                    const isPrimary =
+                      table.primaryKey === column.name ||
+                      table.primaryKey.includes(column.name);
                     if (foreignKey && isPrimary) {
                       return <Icon path={mdiKeyLink} className="column-icon" />;
                     } else if (foreignKey) {
@@ -658,7 +658,7 @@ function RelationshipDiagram({
           onConnect={handleAddConnectionBetweenNodes}
           onInit={onInit}
         >
-            {children}
+          {children}
         </ReactFlow>
       </div>
     </>
