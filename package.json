@@ -1,7 +1,10 @@
 {
-  "name": "react-erd",
-  "version": "1.0.15",
-  "author": "CNimmo16",
+  "name": "@dosaki/react-erd",
+  "version": "1.1.2",
+  "author": "dosaki",
+  "contributors": [
+    "CNimmo16"
+  ],
   "keywords": [
     "Entity Relationship Diagram",
     "React",
@@ -13,7 +16,7 @@
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/CNimmo16/react-erd.git"
+    "url": "git+https://github.com/dosaki/react-erd.git"
   },
   "license": "MIT",
   "main": "dist/RelationshipDiagram.cjs",
@@ -72,5 +75,10 @@
   "peerDependencies": {
     "react": ">=18",
     "react-dom": ">=18"
-  }
+  },
+  "description": "An easy-to-use component for rendering Entity Relationship Diagrams in React",
+  "bugs": {
+    "url": "https://github.com/dosaki/react-erd/issues"
+  },
+  "homepage": "https://github.com/dosaki/react-erd#readme"
 }
